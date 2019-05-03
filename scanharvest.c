@@ -13,6 +13,9 @@
 #define true 1
 #define false 0
 #define txtSKIPEXAMP
+#define txtPOOLSIZE 16*32768 // available memory for strings
+#define txtMAXLEN 4096   // max string length
+
 #include "milkstrict.c"
 
 #define forloop(x,y,z) for (x = (y);x <= (z);x++) 
