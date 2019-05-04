@@ -236,6 +236,7 @@ int main(int argc, char * argv[])  {
   int i ;
   int li ;
   tXt s,tkn ;
+  LoopMacro = fridge("#define EvLoopMacro") ;
   EvStartMacro = fridge("#define EvStartMacro") ;
   if (argc >=2 && EQS(getext(argv[1]),"ino")) {
     finame = fridge(argv[1]) ;
