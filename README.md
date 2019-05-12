@@ -66,18 +66,17 @@ If your sketch is called test.ino copy scanharvest.exe to the project folder. Cr
 I found a way to integrate it in the arduino system. I am not an arduino expert so it might not be the best way. This is for letting it work with the arduino uno.
 
 find the file
-  (...)\hardware\arduino\avr\platform.txt
+    (...)\hardware\arduino\avr\platform.txt
 
 In this file replace the line "compiler.cpp.cmd=avr-g++" in "compiler.cpp.cmd=avrcompil.bat"
 find the folder:
-(...)\hardware\tools\avr\bin
+    (...)\hardware\tools\avr\bin
 
 copy scanharvest.exe to this folder
 create a batchfile avrcompil.bat with 2 lines int this folder:
 
-(...)\hardware\tools\avr\bin\scanharvest.exe %*
-
-(...)\hardware\tools\avr\bin\avr-g++.exe %*
+    (...)\hardware\tools\avr\bin\scanharvest.exe %*
+    (...)\hardware\tools\avr\bin\avr-g++.exe %*
 
 The (...) part in this description is dependant on how you installed arduino and what version you are using.
 
@@ -133,6 +132,7 @@ The combination of alsoLater() and payload enables you to make very powerfull pr
       alsoLater(200+20*payload,multiflash) ;
     }
 
+The functions in varlater.h work the same as in later.h except that there are separate functions for microseconds and seconds resolution
 
 
 
