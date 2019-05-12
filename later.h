@@ -1,3 +1,10 @@
+
+
+#ifndef TIMTYP
+#define TIMTYP unsigned long
+#define ETERNAL 0xffffffff
+#endif
+
 typedef void (*t_event)()  ;
 
 #ifdef withpayload 
@@ -12,7 +19,7 @@ typedef struct teventnode {
    #ifdef withpayload
    payloadtype load ;
    #endif
-   unsigned long firetime;
+   TIMTYP firetime;
    teventnode  *  link ; } teventnode;
 #define pevnode teventnode *
 
@@ -109,15 +116,15 @@ bool dontkillevent = false ;
 
 
 #ifdef microsLater
-#define nowtime() (unsigned long) (micros())
+#define nowtime() (TIMTYP) (micros())
 #else
-#define nowtime() (unsigned long) (millis())
+#define nowtime() (TIMTYP) (millis())
 #endif
 
 
-unsigned  long reftime ;
+TIMTYP reftime ;
 
-void later(long delaytim,t_event ev) {
+void later(TIMTYP delaytim,t_event ev) {
   pevnode nev ;
   pevnode hev ;
   pevnode prev ;
@@ -140,7 +147,7 @@ void later(long delaytim,t_event ev) {
     if (hev == NULL) {
       eventlist = nev ; }
     while (hev != NULL) {
-      if (hev->firetime-reftime > (unsigned)delaytim) {
+      if (hev->firetime-reftime > delaytim) {
         if (prev == NULL) {
           nev->link = eventlist ;
           eventlist = nev ; }
@@ -155,13 +162,13 @@ void later(long delaytim,t_event ev) {
           prev->link = nev ;} } }
 }
 
-void alsoLater(long delaytim,t_event ev) {
+void alsoLater(TIMTYP delaytim,t_event ev) {
   dontkillevent = true ;
   later(delaytim,ev) ;
   dontkillevent = false ; }
 
-long timeUntil(t_event ev) {
-  long rslt = 0x7fffffff ;
+TIMTYP timeUntil(t_event ev) {
+  TIMTYP rslt = ETERNAL;
   int n ;
   pevnode hev = eventlist ;
   while (hev != NULL) {
@@ -170,8 +177,6 @@ long timeUntil(t_event ev) {
       if (n < rslt)
         rslt = n ; }
     hev = (pevnode) hev->link ; } 
-  if (rslt == 0x7fffffff)
-    rslt = -999 ;  
   return rslt ; }
 
 
@@ -184,7 +189,7 @@ bool peek_event(void) {
     reftime = nowtime() ;
     return false ; }
   else {
-    unsigned long clock = nowtime() ;
+    TIMTYP clock = nowtime() ;
     if (clock-reftime < eventlist->firetime-reftime)
       reftime = clock ;
     else {
@@ -200,7 +205,7 @@ bool peek_event(void) {
      (*current_event)() ;   
   return (current_event != NULL) ; }
 
-#define checkinp(x) static bool was##x ; if (was##x != digitalRead(x)) { was##x = !was##x ; if (was##x) ev_1_##x(); else ev_0_##x();}
+#define checkinp(x) static bool was##x ; if (was##x != digitalRead(x)) { was##x = !was##x ; if (was##x) onRise_##x(); else onFall_##x();}
 #define checkinpl(x) static bool was##x ; if (was##x != digitalRead(x)) { was##x = !was##x ; if (!was##x) onFall_##x();}
 #define checkinph(x) static bool was##x ; if (was##x != digitalRead(x)) { was##x = !was##x ; if (was##x) onRise_##x();}
 #define checkChange(x) static bool was##x ; if (was##x != digitalRead(x)) { was##x = !was##x ; onChange_##x(was##x);}
