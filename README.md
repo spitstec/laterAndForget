@@ -66,10 +66,12 @@ If your sketch is called test.ino copy scanharvest.exe to the project folder. Cr
 I found a way to integrate it in the arduino system. I am not an arduino expert so it might not be the best way. This is for letting it work with the arduino uno.
 
 find the file
+
     (...)\hardware\arduino\avr\platform.txt
 
 In this file replace the line "compiler.cpp.cmd=avr-g++" in "compiler.cpp.cmd=avrcompil.bat"
 find the folder:
+
     (...)\hardware\tools\avr\bin
 
 copy scanharvest.exe to this folder
@@ -108,7 +110,7 @@ With the line:
 
 #define withpayload
 
-The payload system is enabled. The payload variable is an integer. When later() is called the value of payload is stored in the time Queue. When after some time the the event function is started the value from the queue is copied back to payload.
+The payload system is enabled. The payload variable is an integer. When later() is called the value of payload is stored in the time queue. When after some time the the event function is started the value from the queue is copied back to payload.
 
 When later() is called earlier references to the same event function are removed from the queue. The function alsoLater() works the same as later() but earlier references are not removed. Normally there are only 20 positions in the queue so alsoLater() should be used with care. 
 
@@ -131,6 +133,8 @@ The combination of alsoLater() and payload enables you to make very powerfull pr
       digitalWrite(Q[payload],flips[payload]) ;
       alsoLater(200+20*payload,multiflash) ;
     }
+
+varlater.h
 
 The functions in varlater.h work the same as in later.h except that there are separate functions for microseconds and seconds resolution
 
