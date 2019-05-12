@@ -75,7 +75,7 @@ find the folder:
     (...)\hardware\tools\avr\bin
 
 copy scanharvest.exe to this folder
-create a batchfile avrcompil.bat with 2 lines int this folder:
+create a batchfile avrcompil.bat with 2 lines in this folder:
 
     (...)\hardware\tools\avr\bin\scanharvest.exe %*
     (...)\hardware\tools\avr\bin\avr-g++.exe %*
