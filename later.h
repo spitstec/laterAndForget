@@ -1,7 +1,10 @@
 
 
+ /* This free software comes without any warranty, to
+ the extent permitted by applicable law. */
+ 
 #ifndef TIMTYP
-#define TIMTYP unsigned long
+typedef  unsigned long TIMTYP ;
 #define ETERNAL 0xffffffff
 #endif
 
@@ -169,7 +172,7 @@ void alsoLater(TIMTYP delaytim,t_event ev) {
 
 TIMTYP timeUntil(t_event ev) {
   TIMTYP rslt = ETERNAL;
-  int n ;
+  TIMTYP n ;
   pevnode hev = eventlist ;
   while (hev != NULL) {
     if (hev->eve == ev) {
@@ -190,7 +193,7 @@ bool peek_event(void) {
     return false ; }
   else {
     TIMTYP clock = nowtime() ;
-    if (clock-reftime < eventlist->firetime-reftime)
+    if ((TIMTYP)(clock-reftime) < (TIMTYP)(eventlist->firetime-reftime))
       reftime = clock ;
     else {
       reftime = eventlist->firetime ;

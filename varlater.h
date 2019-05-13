@@ -1,4 +1,7 @@
 
+ /* This free software comes without any warranty, to
+ the extent permitted by applicable law. */
+
 /* this version of later() has separate functions for microseconds,milliseconds and seconds */
 
 typedef void (*t_event)()  ;
@@ -66,10 +69,15 @@ teventnode * pevmalloc(void) {
 
 
 
+pevnode secEvents = NULL ;
+TIMTYP secCount ;  
+bool secondsForget(t_event ev) ;
 
 
 bool forget(t_event ev) {
   bool rslt = false ;
+  if (secEvents && secondsForget(ev))
+    return true ;
   for (int idx=0;idx<=(1);idx++) {
     pevnode prev = NULL ;
     pevnode hev = eventlist[idx] ;
@@ -179,7 +187,7 @@ bool peek_event(void) {
     if (eventlist[idx] == NULL) {
       reftime[idx] = clock ;}
     else {
-      if (clock-reftime[idx] < eventlist[idx]->firetime-reftime[idx])
+      if ((TIMTYP)(clock-reftime[idx]) < (TIMTYP)(eventlist[idx]->firetime-reftime[idx]))
         reftime[idx] = clock ;
       else {
         reftime[idx] = eventlist[idx]->firetime ;
@@ -196,8 +204,6 @@ bool peek_event(void) {
      (*current_event)() ;   
   return (current_event != NULL) ; }
   
-pevnode secEvents = NULL ;
-TIMTYP secCount ;  
 
 void oneSecond(void) {
   secCount++ ;
@@ -263,7 +269,7 @@ bool secondsForget(t_event ev) {
       nev = nev->link ; } }
   return rslt ;
 }
-    
+  
 
 
 
