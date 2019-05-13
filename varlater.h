@@ -131,7 +131,7 @@ void varLater(TIMTYP delaytim,t_event ev,int microItv) {
     if (hev == NULL) {
       eventlist[microItv] = nev ; }
     while (hev != NULL) {
-      if (hev->firetime-reftime[microItv] > (TIMTYP)delaytim) {
+      if ((TIMTYP)(hev->firetime-reftime[microItv]) > delaytim) {
         if (prev == NULL) {
           nev->link = eventlist[microItv] ;
           eventlist[microItv] = nev ; }
@@ -206,6 +206,15 @@ bool peek_event(void) {
   
 
 void oneSecond(void) {
+#if ETERNAL < 1000
+  static unsigned char quarts ;
+  quarts++ ;
+  if (secEvents)
+    later(250,oneSecond) ;
+  if (quarts < 4)
+    return ;
+  quarts = 0 ;  
+#endif
   secCount++ ;
   pevnode nev = secEvents ;
   while (nev) {
@@ -229,15 +238,24 @@ void oneSecond(void) {
       pevfree(nev) ;  
       (*current_event)() ; 
       nev = secEvents ; } }
+#if ETERNAL >= 1000
   if (secEvents)
     later(1000,oneSecond) ;
+#endif
  }
-      
+
 void secondsLater(TIMTYP delaytim,t_event ev) {
-  if (delaytim == 0) 
-    delaytim = 1 ;
+  if (!dontkillevent)
+    forget(ev) ;
+  if (delaytim == 0) {
+    later(0,ev) ;
+    return ; }
   if (secEvents == NULL)
+#if ETERNAL >= 1000 
     later(1000,oneSecond) ;
+#else
+    later(250,oneSecond) ;
+#endif    
   pevnode nev ;
   nev = pevmalloc() ;
   nev->firetime = secCount+delaytim ;

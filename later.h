@@ -150,7 +150,7 @@ void later(TIMTYP delaytim,t_event ev) {
     if (hev == NULL) {
       eventlist = nev ; }
     while (hev != NULL) {
-      if (hev->firetime-reftime > delaytim) {
+      if ((TIMTYP)(hev->firetime-reftime) > delaytim) {
         if (prev == NULL) {
           nev->link = eventlist ;
           eventlist = nev ; }
