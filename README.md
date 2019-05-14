@@ -35,7 +35,7 @@ The forget function makes that a function that is scheduled by later() is not ex
       forget(debounced) ; }
 
     void debounced(void) {
-      digtitalWrite(13,!digitalread(13)) ;}
+      digtitalWrite(13,!digitalRead(13)) ;}
 
 The "addSetup" macro let you add some code to the setup part of the arduino code. The use of this function makes that you can keep all the code related to a group of I/O together. 
 example: flash the led 2 times per second when program is running.
