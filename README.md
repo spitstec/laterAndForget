@@ -75,17 +75,17 @@ find the folder:
 
     (...)\hardware\tools\avr\bin
 
-copy scanharvest.exe to this folder
-create a batchfile avrcompil.bat with 2 lines in this folder:
+copy scanharvest.exe to this folder.
+
+Create a batchfile avrcompil.bat with 2 lines in this folder:
 
     (...)\hardware\tools\avr\bin\scanharvest.exe %*
     (...)\hardware\tools\avr\bin\avr-g++.exe %*
 
 The (...) part in this description is dependant on how you installed arduino and what version you are using.
 
-If you want to use this system a ino file, an empty project looks like this:
+If you want to use this system  an empty ino file looks like this:
 
-    #include "Arduino.h"
     #include "later.h"  
     #include "harvested.h" 
     /** insert your code here */
