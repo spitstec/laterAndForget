@@ -70,6 +70,7 @@ find the file
     (...)\hardware\arduino\avr\platform.txt
 
 In this file replace the line "compiler.cpp.cmd=avr-g++" in "compiler.cpp.cmd=avrcompil.bat"
+
 find the folder:
 
     (...)\hardware\tools\avr\bin
