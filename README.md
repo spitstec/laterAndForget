@@ -1,6 +1,18 @@
 # laterAndForget
 Controlling arduino with onChange() later() and forget()
 
+"Later and forget" is a system for letting a microcontroller do multiple things at the same time. it is much easier to use than  multitasking or multithreading  "Later and forget" is a well-established approach that is widely used in web development and is also well suited for embedded systems.
+
+One of the main advantages of "later and forget" over multitasking is that it is easier to debug. With multitasking, it can be difficult to identify and isolate problems because of the numerous tasks running simultaneously. However, with "later and forget," tasks are executed sequentially, making it easier to trace errors back to their source.
+
+Another advantage of "later and forget" is that it uses less memory. In multitasking systems, each task requires its own memory space, which can quickly add up and result in inefficient use of resources. With "later and forget," tasks are executed one at a time, minimizing the amount of memory needed.
+
+"Later and forget" is also often faster than multitasking. Since tasks are executed sequentially, there is no need to switch between tasks, resulting in faster execution times.
+
+This system has less chance of encountering race conditions, where two or more tasks access shared resources simultaneously and cause unexpected behavior. With "later and forget," tasks are executed one at a time, eliminating the possibility of race conditions.
+
+Overall, "later and forget" is a reliable and efficient system for managing tasks in software systems. Its approach of "run to completion" ensures that each task is executed completely before moving on to the next, resulting in efficient use of resources and easy debugging.
+
 
 
 
